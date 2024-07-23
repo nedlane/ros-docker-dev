@@ -3,17 +3,22 @@ version: "3.8"
 services:
   ros_dev_env:
     container_name: "ros-dev-vm"
-    image: "noetic-ros-core-focal"
+    image: "nvidia/cuda:12.5.1-runtime-ubuntu22.04"
     build: ./
     volumes:
-      - ${ROS_PROJECT_PATH}:/ros_ws/src/
-      - /Users/nedlane/.config/tmux/:/root/.config/tmux
-      - /Users/nedlane/.tmux:/root/.tmux
+      - ${ROS_PROJECT_PATH}:/ros2_ws/src/
     environment:
       - DISPLAY=novnc:0.0
     networks:
       - x11
     stdin_open: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     tty: true
   novnc:
     image: theasp/novnc:latest
