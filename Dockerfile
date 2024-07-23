@@ -21,6 +21,8 @@ RUN apt install software-properties-common -y --no-install-recommends
 
 RUN rm -rf /var/lib/apt/lists/*
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+
 RUN sudo add-apt-repository universe
 
 RUN sudo apt update && sudo apt install curl -y --no-install-recommends
