@@ -21,7 +21,11 @@ RUN apt install software-properties-common -y --no-install-recommends
 
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+RUN export DEBIAN_FRONTEND=noninteractive
+RUN apt-get install -y tzdata
+
+RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 RUN sudo add-apt-repository universe
 
