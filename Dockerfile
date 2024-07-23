@@ -17,19 +17,13 @@ RUN apt-get update  && apt update && apt-get install --no-install-recommends -y 
 
 RUN echo "yes" | pip3 install scipy
 
-RUN apt install software-properties-common -y --no-install-recommends
+RUN DEBIAN_FRONTEND=noninteractive apt install -y -qq software-properties-common
 
-RUN rm -rf /var/lib/apt/lists/*
-
-RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
-RUN export DEBIAN_FRONTEND=noninteractive
-RUN apt-get install -y tzdata
-
-RUN dpkg-reconfigure --frontend noninteractive tzdata
-
-RUN sudo add-apt-repository universe
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository universe
 
 RUN sudo apt update && sudo apt install curl -y --no-install-recommends
+
+RUN rm -rf /var/lib/apt/lists/*
 
 RUN sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 
