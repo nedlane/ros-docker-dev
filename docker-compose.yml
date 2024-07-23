@@ -3,7 +3,7 @@ version: "3.8"
 services:
   ros_dev_env:
     container_name: "ros-dev-vm"
-    image: "nvidia/cuda:12.5.1-runtime-ubuntu22.04"
+    image: "nvidia/cuda:12.5.1-cudnn-devel-ubuntu20.04"
     build: ./
     volumes:
       - ${ROS_PROJECT_PATH}:/ros2_ws/src/
